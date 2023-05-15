@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.rounded.AccountBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -64,11 +65,28 @@ fun Greeting(name: String) {
             },
             actions = {
                 IconButton(
-                    onClick = { Toast.makeText(context, "作者：楊子青", Toast.LENGTH_SHORT).show() }
+                    onClick = { Toast.makeText(context, "作者：鍾愛美", Toast.LENGTH_SHORT).show() }
                 ) {
                     Icon(Icons.Rounded.AccountBox, contentDescription = "author")
                 }
+                IconButton(
+                    onClick = { showMenu.value = true }
+                ) {
+                    Icon(Icons.Default.MoreVert, contentDescription = null)
+                }
+                DropdownMenu(
 
+                    expanded = showMenu.value, onDismissRequest = { showMenu.value = false }
+
+                ) { DropdownMenuItem(onClick = { navController.navigate("JumpFirst")
+                }) {
+                    Text(text = "畫面1") }
+                    DropdownMenuItem(
+                        onClick =
+                        { navController.navigate("JumpSecond") })
+                    { Text(text = "畫面2")
+                    }
+                }
             }
         )
         NavHost(navController = navController, startDestination = "JumpFirst"){
@@ -130,6 +148,7 @@ fun SecondScreen(navController: NavController) {
         }) {
             Text(text = "我是畫面2，按一下跳至畫面3")
         }
+        Text(text = "picture")
         Image(
             painterResource(id = R.drawable.pic),
             contentDescription ="picture")
